@@ -2,16 +2,21 @@ from firebase_admin import db, credentials, firestore, initialize_app
 from email.message import EmailMessage
 import smtplib
 
-cred = credentials.Certificate("LabItEmailer/labit-b36bf-firebase-adminsdk-ntbal-cee91c0aa7.json")
-initialize_app(cred, {"databaseURL": "https://labit-b36bf-default-rtdb.firebaseio.com"})
-db = firestore.client()
-
-sender = "svc_cs_labit@gcc.edu"
-smtp = smtplib.SMTP("smtp-mail.outlook.com", port=587)
-smtp.starttls()
-smtp.login(sender, "Fud10200")
-
 def email_user():
+
+    cred = credentials.Certificate("LabItEmailer/labit-b36bf-firebase-adminsdk-ntbal-cee91c0aa7.json")
+    initialize_app(cred, {"databaseURL": "https://labit-b36bf-default-rtdb.firebaseio.com"})
+
+    db = firestore.client()
+    print(1)
+
+    sender = "svc_cs_labit@gcc.edu"
+    smtp = smtplib.SMTP("smtp-mail.outlook.com", port = 587)
+    print(2)
+    smtp.starttls()
+    print(3)
+    smtp.login(sender, "Fud10200")
+    print(4)
     
     docs = (
         db.collection("EmailRequests")
@@ -171,8 +176,6 @@ def email_user():
     smtp.quit()
 
 email_user()
-        
-smtp.quit()
 
 
 
@@ -231,7 +234,10 @@ smtp.quit()
 
 
 # sender = "svc_cs_labit@gcc.edu"
-# smtp = smtplib.SMTP("smtp-mail.outlook.com", port=587)
+# print(1)
+# smtp = smtplib.SMTP("smtp-mail.outlook.com", port = 587)
+# print(2)
+# # smtp.ehlo()
 # smtp.starttls()
 # smtp.login(sender, "Fud10200")
 
@@ -246,3 +252,20 @@ smtp.quit()
 #     smtp.sendmail(sender, recipient, email.as_string())
 
 # smtp.quit()
+
+# msg = EmailMessage()
+# msg['From'] = 'svc_cs_labit@gcc.edu'
+# msg['To'] = 'sinkevitchdp19@gcc.edu'
+# msg['Subject'] = 'Subject of the email'
+# msg.set_content('Body of the email')
+
+# # Connect to the SMTP server
+# with smtplib.SMTP('smtp-mail.outlook.com', port=587) as smtp:
+#     # Enable encryption
+#     smtp.starttls()
+
+#     # Login to the SMTP server (if authentication is required)
+#     smtp.login('svc_cs_labit@gcc.edu', 'Fud10200')
+
+#     # Send the email
+#     smtp.send_message(msg)

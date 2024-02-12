@@ -6,8 +6,10 @@ count = 0
 
 if __name__ == '__main__':
     
-    while True:            
+    while True:
+        print("before email")            
         email_user()
+        print("after email")
         time.sleep(300)
         count += 1
 
