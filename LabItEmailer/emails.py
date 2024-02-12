@@ -4,7 +4,7 @@ import smtplib
 
 def email_user():
 
-    cred = credentials.Certificate("LabItEmailer/labit-b36bf-firebase-adminsdk-ntbal-cee91c0aa7.json")
+    cred = credentials.Certificate("labit-b36bf-firebase-adminsdk-ntbal-cee91c0aa7.json")
     initialize_app(cred, {"databaseURL": "https://labit-b36bf-default-rtdb.firebaseio.com"})
 
     db = firestore.client()
