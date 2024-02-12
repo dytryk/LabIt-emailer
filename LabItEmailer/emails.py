@@ -1,9 +1,8 @@
-import win32com.client
 from firebase_admin import db, credentials, firestore, initialize_app
 from email.message import EmailMessage
 import smtplib
 
-cred = credentials.Certificate("labit-b36bf-firebase-adminsdk-ntbal-cee91c0aa7.json")
+cred = credentials.Certificate("LabItEmailer/labit-b36bf-firebase-adminsdk-ntbal-cee91c0aa7.json")
 initialize_app(cred, {"databaseURL": "https://labit-b36bf-default-rtdb.firebaseio.com"})
 db = firestore.client()
 
@@ -104,6 +103,7 @@ def email_user():
             message = email_info.get('message')
             student_name = email_info.get('studentName')
             requires_action = email_info.get("requiresAction")
+            replyTo = email_info.get('replyTo')
 
             if (requires_action == 1):
                 print("request\n")
@@ -121,7 +121,7 @@ def email_user():
                     email["From"] = sender
                     email["To"] = recipient
                     email["Subject"] = subject
-                    email['reply-to'] = profFrom
+                    email['Reply-To'] = replyTo
                     email.set_content(email_body)
 
                     smtp.sendmail(sender, recipient, email.as_string())
@@ -152,18 +152,16 @@ def email_user():
                 print("message: ", message, "\n")
                 print("requires action: ", requires_action, "\n")
 
-                email_body = student_name, " has requested to be absent from  ", lab_out_of, ".\n", message
-
                 try:
                     email = EmailMessage()
+                    email_body = message
+                    email.set_content(email_body)
                     email["From"] = sender
                     email["To"] = recipient
                     email["Subject"] = subject
-                    email['reply-to'] = profFrom
-                    email.set_content(email_body)
-
+                    email['Reply-To'] = profFrom
+                    
                     smtp.sendmail(sender, recipient, email.as_string())
-
                     # Update Firestore document
                     # doc.reference.update({"requiresAction": 0})
                     print("Email sent successfully.")
@@ -233,3 +231,28 @@ smtp.quit()
 #                 print("Error sending email:", e)
 
 # email_user()
+
+
+
+
+
+
+
+
+
+# sender = "svc_cs_labit@gcc.edu"
+# smtp = smtplib.SMTP("smtp-mail.outlook.com", port=587)
+# smtp.starttls()
+# smtp.login(sender, "Fud10200")
+
+# for i in range(5):
+#     email = EmailMessage()
+#     message = "Hello world!"
+#     recipient = "sinkevitchdp19@gcc.edu"
+#     email.set_content(message)
+#     email["From"] = sender
+#     email["To"] = recipient
+#     email["Subject"] = "Test Email"
+#     smtp.sendmail(sender, recipient, email.as_string())
+
+# smtp.quit()
