@@ -26,12 +26,23 @@ def email_user():
     for doc in docs:
         email_info = doc.to_dict()
 
+        if not email_info: continue
+
+        recipient = email_info.get('recipient')
+        subject = email_info.get('subject')
+
+        if not recipient: 
+            print(f"No recipient error {email_info}")
+            continue
+
+        if not subject:
+            print(f"No subject error {email_info}")
+            continue
+
         if (email_info.get('type') == "switchInto"):
 
-            recipient = email_info.get('recipient')
             lab_into = email_info.get('labInto')
             lab_out_of = email_info.get('labOutOf')
-            subject = email_info.get('subject')
             message = email_info.get('message')
             student_name = email_info.get('studentName')
             requires_action = email_info.get("requiresAction")
@@ -65,10 +76,8 @@ def email_user():
 
         if (email_info.get('type') == "switchOutOf"):
 
-            recipient = email_info.get('recipient')
             lab_into = email_info.get('labInto')
             lab_out_of = email_info.get('labOutOf')
-            subject = email_info.get('subject')
             message = email_info.get('message')
             student_name = email_info.get('studentName')
             requires_action = email_info.get("requiresAction")
@@ -102,9 +111,7 @@ def email_user():
 
         if (email_info.get('type') == "request"):
             
-            recipient = email_info.get('recipient')
             lab_out_of = email_info.get('labOutOf')
-            subject = email_info.get('subject')
             message = email_info.get('message')
             student_name = email_info.get('studentName')
             requires_action = email_info.get("requiresAction")
@@ -140,10 +147,8 @@ def email_user():
 
         if (email_info.get('type') == "contactStudent"):
 
-            recipient = email_info.get('recipient')
             sectionFrom = email_info.get('sectionFrom')
             profFrom = email_info.get('prof')
-            subject = email_info.get('subject')
             message = email_info.get('message')
             student_name = email_info.get('studentName')
             requires_action = email_info.get("requiresAction")
