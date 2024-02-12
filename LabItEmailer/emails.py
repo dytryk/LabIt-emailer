@@ -160,7 +160,7 @@ def email_user():
                     email["To"] = recipient
                     email["Subject"] = subject
                     email['Reply-To'] = profFrom
-                    
+
                     smtp.sendmail(sender, recipient, email.as_string())
                     # Update Firestore document
                     # doc.reference.update({"requiresAction": 0})
@@ -168,15 +168,11 @@ def email_user():
                 except Exception as e:
                     print("Error sending email:", e)
 
+    smtp.quit()
+
 email_user()
         
 smtp.quit()
-
-
-
-
-
-
 
 
 
@@ -231,12 +227,6 @@ smtp.quit()
 #                 print("Error sending email:", e)
 
 # email_user()
-
-
-
-
-
-
 
 
 
