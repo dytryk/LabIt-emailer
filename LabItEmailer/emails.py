@@ -4,7 +4,7 @@ import smtplib
 
 def email_user():
 
-    cred = credentials.Certificate("labit-b36bf-firebase-adminsdk-ntbal-e029442de8.json")
+    cred = credentials.Certificate("LabItEmailer/labit-b36bf-firebase-adminsdk-ntbal-e029442de8.json")
     initialize_app(cred, {"databaseURL": "https://labit-b36bf-default-rtdb.firebaseio.com"})
 
     db = firestore.client()
@@ -44,7 +44,8 @@ def email_user():
             lab_into = email_info.get('labInto')
             lab_out_of = email_info.get('labOutOf')
             message = email_info.get('message')
-            student_name = email_info.get('studentName')
+            # student_name = email_info.get('studentName')
+            student_name = "Dietrich"
             requires_action = email_info.get("requiresAction")
 
             if (requires_action == 1):
@@ -57,7 +58,7 @@ def email_user():
                 print("student name: ", student_name, "\n")
                 print("requires action: ", requires_action, "\n")
 
-                email_body = student_name, " is switching from ", lab_out_of, " into ", lab_into, ".\nSincerely,\n-The LabIt Team"
+                email_body = student_name + " is switching from " + lab_out_of + " into " + lab_into + ".\nMessage: " + message + "\nSincerely,\n-The LabIt Team"
 
                 try:
                     email = EmailMessage()
@@ -92,7 +93,7 @@ def email_user():
                 print("student name: ", student_name, "\n")
                 print("requires action: ", requires_action, "\n")
 
-                email_body = student_name, " is switching from ", lab_out_of, " into ", lab_into, ".\nSincerely,\n-The LabIt Team"
+                email_body = student_name + " is switching from " + lab_out_of + " into " + lab_into + ".\nMessage: " + message + "\nSincerely,\n-The LabIt Team"
 
                 try:
                     email = EmailMessage()
@@ -113,7 +114,8 @@ def email_user():
             
             lab_out_of = email_info.get('labOutOf')
             message = email_info.get('message')
-            student_name = email_info.get('studentName')
+            # student_name = email_info.get('studentName')
+            student_name = "Ethan"
             requires_action = email_info.get("requiresAction")
             replyTo = email_info.get('replyTo')
 
@@ -126,7 +128,7 @@ def email_user():
                 print("student name: ", student_name, "\n")
                 print("requires action: ", requires_action, "\n")
 
-                email_body = student_name, " has requested to be absent from  ", lab_out_of, ".\n", message
+                email_body = student_name + " has requested to be absent from " + lab_out_of + ".\n\n" + message + "\n\nSincerely,\n-The LabIt Team"
 
                 try:
                     email = EmailMessage()
